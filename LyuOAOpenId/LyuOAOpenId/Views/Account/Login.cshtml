@@ -1,0 +1,78 @@
+﻿@model LyuOAOpenId.Models.Account.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>国技互联账号登录</title>
+    <link href="~/Content/login.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header Start-->
+    <div class="lay_top">
+        <div class="lay_top_inner">
+            <h1 class="logo" style="font-size: 24px;color: #fff;font-weight: 100;margin-top: 5px;">国际互联</h1>
+        </div>
+    </div>
+    <!-- header End -->
+    <div id="combine_page">
+        <div class="page_login combine_page_children align">
+            <div class="lay_login_form">
+                <div id="header" class="header">
+                    <div class="switch" id="switch" style="text-align: center;">
+                        <a class="switch_btn_focus" hidefocus="true" href="javascript:void(0);">帐号密码登录</a>
+                    </div>
+                </div>
+                <div class="web_qr_login" id="web_qr_login" style="display: block; height: 265px;">
+                    <div class="web_qr_login_show" id="web_qr_login_show">
+                        <div class="loginTips">
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="error_tips" id="error_tips" style="display: block;">
+                                    <span class="error_logo" id="error_logo"></span>
+                                    <span class="err_m" id="err_m">@ViewData.ModelState.First(x => x.Value.Errors.Count > 0).Value.Errors[0].ErrorMessage</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="web_login" id="web_login">
+                            <div class="tips" id="tips">
+                            </div>
+                            <div class="login_form">
+                                @using (Html.BeginForm())
+                                {
+                                    <div class="uinArea" id="uinArea">
+                                        <div class="inputOuter">
+                                            @Html.TextBoxFor(x => x.Username, new { @class = "inputstyle", style = "background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=);", placeholder = "用户名" })
+                                        </div>
+                                        <ul class="email_list" id="email_list" style="display: none;"></ul>
+                                    </div>
+                                    <div class="pwdArea" id="pwdArea">
+                                        <div class="inputOuter">
+                                            @Html.PasswordFor(x => x.Password, new { @class = "inputstyle password", maxlength = "16", style = "background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=);", placeholder = "密码" })
+                                        </div>
+                                        <div class="lock_tips" id="caps_lock_tips"><span class="lock_tips_row"></span> <span>大写锁定已打开</span></div>
+                                    </div>
+                                    <div class="submit">
+                                        <a class="login_button" href="javascript:void(0);" hidefocus="true"><input type="submit" tabindex="6" value="登录" class="btn" id="login_button"></a>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="bottom" id="bottom_web" style="display: block;">
+                                <a href="javascript:void(0);" class="link" id="forgetpwd" target="_blank">忘了密码？</a>
+                                <span class="dotted">|</span>
+                                <a class="link" id="feedback_web" href="javascript:void(0);" target="_blank">意见反馈</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

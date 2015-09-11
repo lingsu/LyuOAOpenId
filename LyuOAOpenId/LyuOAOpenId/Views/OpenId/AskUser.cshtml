@@ -1,0 +1,101 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>国技互联账号登录</title>
+    <link href="~/Content/login.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header Start-->
+    <div class="lay_top">
+        <div class="lay_top_inner">
+            <h1 class="logo" style="font-size: 24px;color: #fff;font-weight: 100;margin-top: 5px;">国际互联</h1>
+            <div class="lat_top_other">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="javascript:void(0);">
+                        <i class="icon_help_white"></i>@User.Identity.Name
+                    </a>
+                    <span class="line">|</span>
+                    <a href="/account/login" title="切换账号">
+                        <i class="icon_help_white"></i>切换账号
+                    </a>
+                }
+                else
+                {
+                    <a href="/account/login" title="登录">
+                        <i class="icon_help_white"></i>登录
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- header End -->
+    <div id="combine_page">
+        <div class="page_login combine_page_children align">
+            <div class="lay_login_form">
+                <div class="web_qr_login" id="web_qr_login" style="display: block; height: 265px;">
+                    <div class="web_qr_login_show" id="web_qr_login_show">
+                        <div class="web_login" id="web_login">
+                            <div class="login_form">
+                                @using (Html.BeginForm(Html.BeginForm("AskUserResponse", "OpenId")))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("confirmed", "false")
+                                    <div class="lay_accredit_con">
+                                        <p class="cnt_wording">将允许 <a class="accredit_site" id="accredit_site_link" href="http://passport.iqiyi.com/verify/" target="_blank">@Html.Encode(ViewData["Realm"])</a> 进行以下操作：
+                                        </p>
+                                        <div class="accredit_info" id="accredit_info">
+                                            <ul class="accredit_info_op">
+                                                <li>
+                                                    <label class="oauth_item_title">获得您的个人信息和部门信息</label>
+                                                </li>
+                                                <li>
+                                                    <label class="oauth_item_title">读取审批信息</label>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p class="app_site_wording">
+                                    </p>
+                                    <div class="submit">
+                                        <a class="login_button" href="javascript:void(0);" hidefocus="true">
+                                            <input type="submit" tabindex="6" value="登录" onclick="document.getElementsByName('confirmed')[0].value = 'true'; return true;" class="btn" id="login_button">
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                            <div class="bottom" id="bottom_web" style="display: block;">
+                                <a href="javascript:void(0);" class="link" id="forgetpwd" target="_blank">关于国际</a>
+                                <span class="dotted">|</span>
+                                <a class="link" id="feedback_web" href="javascript:void(0);" target="_blank">意见反馈</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[
+        // we use HTML to hide the action buttons and Javascript to show them
+        // to protect against click-jacking in an iframe whose javascript is disabled.
+        document.getElementById('responseButtonsDiv').style.display = 'block';
+        document.getElementById('javascriptDisabled').style.display = 'none';
+
+        // Frame busting code (to protect us from being hosted in an iframe).
+        // This protects us from click-jacking.
+        if (document.location !== window.top.location) {
+            window.top.location = document.location;
+        }
+        //]]>
+    </script>
+</body>
+</html>
